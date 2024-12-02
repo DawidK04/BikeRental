@@ -30,3 +30,20 @@ def calculate_cost(rental_duration):
         return 10 + (rental_duration - 1) * 5
     else:
         return 10
+
+
+
+def save_rental(rental):
+    """
+    Zapisywanie szczegółów wynajmu do rentals.json
+    """
+    filename = "rentals.json"
+    rentals = []
+    if os.path.exists(filename):
+        with open(filename, "r") as file:
+            rentals = json.load(file)
+
+    rentals.append(rental)
+
+    with open(filename, "w") as file:
+        json.dump(rentals, file)
