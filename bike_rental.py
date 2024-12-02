@@ -68,3 +68,26 @@ def load_rentals():
             print(f"Klient: {rental['customer_name']}, Czas wynajmu: {rental['rental_duration']} godzin(y), Koszt: {rental['cost']} zł")
     else:
         print("Brak zapisanych wynajmów.")
+
+
+
+def cancel_rental(customer_name):
+    """
+    Anulowanie wynajmu
+    """
+    filename = "rentals.json"
+    if not os.path.exists(filename):
+        print("Brak zapisanych wynajmów.")
+        return
+
+    with open(filename, "r") as file:
+        rentals = json.load(file)
+
+    canceled_rentals = [rental for rental in rentals if rental["customer_name"] != customer_name]
+
+    if len(canceled_rentals) == len(rentals):
+        print(f"Nie znaleziono wynajmu dla klienta: {customer_name}")
+    else:
+        with open(filename, "w") as file:
+            json.dump(canceled_rentals, file)
+        print(f"Wynajem dla klienta {customer_name} został anulowany.")
