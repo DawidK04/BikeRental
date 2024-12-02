@@ -47,3 +47,24 @@ def save_rental(rental):
 
     with open(filename, "w") as file:
         json.dump(rentals, file)
+
+
+
+def load_rentals():
+    """
+    Odczytywanie wynajmu z rentals.json
+    """
+    filename = "rentals.json"
+    if not os.path.exists(filename):
+        print("Brak zapisanych wynajmów.")
+        return
+
+    with open(filename, "r") as file:
+        rentals = json.load(file)
+
+    if rentals:
+        print("Zapisane wynajmy:")
+        for rental in rentals:
+            print(f"Klient: {rental['customer_name']}, Czas wynajmu: {rental['rental_duration']} godzin(y), Koszt: {rental['cost']} zł")
+    else:
+        print("Brak zapisanych wynajmów.")
